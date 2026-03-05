@@ -33,15 +33,31 @@ int main() {
 int pasirinkimas;
 int m=0;
 Studentas* grupe=nullptr;
-srand(static_cast<unsigned int>(time(NULL)));
-    cout<<"Jei norite studentus ir pazymius ivesti ranka, spauskite 1, jei tik pazymius norite generuoti atsitiktinai, spauskite 2, jei norite studentu vardus, pavardes ir pazymius generuoti atskirai, spauskite 3"<<endl;
-    cin>>pasirinkimas;
+srand(time(nullptr));
 
-bool validSelection=true;
+while(true) {
+    cout<<"Kaip norite ivesti studentu duomenis?"<<endl;
+    cout<<"1 - studentu vardus, pavardes ir pazymius ivesti ranka"<<endl;
+    cout<<"2 - tik pazymius generuoti atsitiktinai"<<endl;
+    cout<<"3 - generuoti studentu vardus, pavardes ir pazymius"<<endl;
+    cin>>pasirinkimas;
+if(cin.fail() || pasirinkimas < 1 || pasirinkimas > 3) {
+    cout << "Prasome ivesti tik viena is skaiciu 1,2 arba 3!" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+} 
+else break;
+}
 
 if(pasirinkimas==1) {
+    while(true) {
     cout<<"kiek yra studentu? "<<endl;
     cin>>m;
+    if(cin.fail() || m <= 0) {
+    cout<<"Prasome ivesti sveika skaiciu didesni uz 0! "<<endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); }
+else break; }
 grupe=new Studentas[m];
 
 for(int ii=0; ii<m; ii++) {
@@ -107,8 +123,17 @@ if(kiekis == 0) grupe[ii].mediana = 0;
 } 
 
 else if(pasirinkimas==2) {
+    while(true) {
     cout << "kiek yra studentu? " << endl;
     cin >> m;
+    if(cin.fail() || m <= 0) {
+        cout<<"Prasome ivesti sveika skaiciu didesni uz 0! "<<endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    } else {
+        break;
+    }
+}
     grupe = new Studentas[m];
 for(int ii = 0; ii < m; ii++){
     while(true) {
@@ -161,8 +186,16 @@ if(kiekis == 0) grupe[ii].mediana = 0;
 }
 } 
 else if(pasirinkimas == 3) {
+    while(true) {
     cout << "kiek yra studentu? " << endl;
     cin >> m;
+    if(cin.fail() || m <= 0) {
+    cout<<"Prasome ivesti sveika skaiciu didesni uz 0! "<<endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); } 
+else break;
+}
+
 grupe = new Studentas[m];
     string firstNames[] = {"Jonas","Petras","Ona","Lina","Mantas","Egle","Darius","Ruta","Tomas","Ieva"};
     string lastNames[]  = {"Petraitis","Kazlauskas","Jankauskas","Stankevicius","Vilkas","Daugela","Miskinis","Jankauskiene","Zalys","Baranauskas"};
@@ -196,12 +229,8 @@ if(kiekis == 0) grupe[ii].mediana = 0;
     grupe[ii].rezultatas = sum * 1.0 / (n * 1.0) * 0.4 + grupe[ii].egzaminas * 0.6;
 }
 } 
-else {
-    cout << "Prasome pasirinkti viena is skaiciu 1, 2 arba 3\n";
-    validSelection = false;
-}
 
-    if(validSelection) {
+    
     cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Rezultatas" << setw(20) << "Mediana" << endl;
     for(int i = 0; i < m; i++){
     cout << left << setw(20) << grupe[i].vardas << setw(20) << grupe[i].pavarde;
@@ -213,7 +242,6 @@ for(int i = 0; i < m; i++) {
     delete[] grupe[i].pazymiai;
 }
     delete[] grupe;
-}
 
     return 0;
 }
