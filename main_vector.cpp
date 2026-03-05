@@ -38,12 +38,33 @@ int pasirinkimas;
 int m;
 Studentas A;
 vector<Studentas>grupe; //saugomi visi studentai
-cout<<"Jei norite studentus ir pazymius ivesti ranka, spauskite 1, jei tik pazymius norite generuoti atsitiktinai, spauskite 2, jei norite studentu vardus, pavardes ir pazymius generuoti atskirai, spauskite 3"<<endl;
+
+while(true) {
+    cout<<"Kaip norite ivesti studentu duomenis?"<<endl;
+cout<<"1 - studentu vardus, pavardes ir pazymius ivesti ranka"<<endl;
+cout<<"2 - tik pazymius generuoti atsitiktinai"<<endl;
+cout<<"3 - studentu vardus, pavardes ir pazymius generuoti atskirai"<<endl;
 cin>>pasirinkimas;
+if(cin.fail() || pasirinkimas < 1 || pasirinkimas > 3) {
+    cout << "Prasome ivesti tik skaicius 1, 2 arba 3!" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+else break; 
+}
 
 if(pasirinkimas==1) {
+    while(true) {
     cout << "kiek yra studentu? " << endl;
 cin>>m;
+if(cin.fail() || m <= 0) {
+    cout << "Prasome ivesti teigiama skaiciu!" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+else break; 
+}
+
 for(int ii=0; ii<m; ii++) {
 while(true) {
     cout<<"Iveskite varda ir pavarde"<<endl;
@@ -209,15 +230,6 @@ A.rezultatas = sum*1.0/(n*1.0)*0.4 + A.egzaminas*0.6;
 grupe.push_back(A);
 A.paz.clear(); }
 }
-
-
-
-
-else {
-    cout << "Prasome pasirinkti viena is skaiciu 1, 2 arba 3\n"; }
-
-
-
 
     cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Rezultatas" << setw(20) << "Mediana" << endl;
 for(auto A:grupe){
